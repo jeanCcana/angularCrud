@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   isActive = false;
-  title = 'Angular ';
+  title = 'Monetes';
   imagenurl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgyHnnKUoPvbeg00psQ3rnVjeynE6F5lmfUVxh0P2uoc0aEyYd";
 }
