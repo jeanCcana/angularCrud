@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  isActive = false;
-  title = 'Monetes';
-  imagenurl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgyHnnKUoPvbeg00psQ3rnVjeynE6F5lmfUVxh0P2uoc0aEyYd";
+  title = 'Angular';
+  imagenurl = "https://media.tenor.com/images/70430d16942d7f361b4eeb90311bd100/tenor.gif";
 }

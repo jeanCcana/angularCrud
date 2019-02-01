@@ -1,0 +1,11 @@
+<div class="card shadow">
+  <div class="card-header  d-flex align-items-center">
+    <h5 class="mr-auto mb-0">Listado de cursos</h5>
+    <button type="button" class="btn btn-sm btn-outline-primary" (click)="setHabilitar()" href="#">{{habilitar==true?'Ocultar':'Mostrar'}}</button>
+  </div>
+  <ul class="list-group" *ngIf="habilitar == true">
+    <li class="list-group-item" *ngFor="let curso of listaCurso">
+      {{curso}}
+    </li>
+  </ul>
+</div>
