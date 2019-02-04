@@ -1,7 +1,8 @@
 <div class="card shadow">
   <div class="card-header d-flex align-items-center">
     <h5 class="mr-auto mb-0">Lista de Clientes</h5>
-    <a class="btn btn-primary text-white" data-toggle="modal" data-target="#addModal" (click)="setTitle()"> Nuevo
+    <a class="btn btn-primary text-white" data-toggle="modal" data-target="#cuModal" (click)="setTitle()">
+      Nuevo
       Cliente <i class="fa fa-user-plus"></i></a>
   </div>
   <div id="scroll" class="table-responsive">
@@ -24,7 +25,7 @@
           <td>{{cliente.email}}</td>
           <td>{{cliente.createAt}}</td>
           <td class="d-flex justify-content-around border-right-0 border-bottom-0">
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal" (click)="setTitle(cliente.id)"><i
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#cuModal" (click)="setTitle(cliente.id)"><i
                 class="fas fa-edit"></i></button>
             <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
           </td>
@@ -34,8 +35,9 @@
   </div>
 </div>
 
-<!-- The Modal -->
-<div class="modal fade" id="addModal">
+
+<!-- Modal Agregar y Editar -->
+<div class="modal fade" id="cuModal">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
 
@@ -55,27 +57,59 @@
                   <span class="input-group-text">Cliente</span>
                 </div>
                 <input type="text" formControlName="nombre" class="form-control text-capitalize" placeholder="Nombre"
-                  name="nombre" [ngModel]=clienteTemp.nombre>
+                  name="nombre">
                 <input type="text" formControlName="apellido" class="form-control text-capitalize" placeholder="Apellido"
-                  name="apellido" [ngModel]=clienteTemp.apellido>
+                  name="apellido">
               </div>
               <div class="input-group my-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text">Email</span>
                 </div>
-                <input type="email" formControlName="email" class="form-control" placeholder="ejemplo@gmail.com" name="email"
-                  [ngModel]=clienteTemp.email>
+                <input type="email" formControlName="email" class="form-control" placeholder="ejemplo@gmail.com" name="email">
               </div>
             </div>
           </div>
-
-          <!-- Modal footer -->
-          <div class="modal-footer justify-content-center">
-            <button class="btn btn-danger" data-dismiss="modal" [disabled]="!formulario.valid" (click)="create()">Añadir
-              cliente</button>
-          </div>
         </form>
-
       </div>
+      <!-- Modal footer -->
+      <div class="modal-footer justify-content-center">
+        <button class="btn btn-danger" data-dismiss="modal" [disabled]="!formulario.valid" (click)="create()">
+          {{btn}}
+        </button>
+      </div>
+
+
+
     </div>
   </div>
+</div>
+
+
+<!-- Modal Eliminar -->
+<div class="modal fade" id="cuModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">{{titulo}}</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+
+
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer justify-content-center">
+        <button class="btn btn-danger" data-dismiss="modal" [disabled]="!formulario.valid" (click)="create()">
+          {{btn}}
+        </button>
+      </div>
+
+
+
+    </div>
+  </div>
+</div>

@@ -1,16 +1,3 @@
-<h2>Angular Reactive Form Validation</h2>
-<form [formGroup]="formulario" novalidate>
-  <div class="form-group">
-    <label class="center-block">Name:
-      <input class="form-control" formControlName="name">
-    </label>
-  </div>
-  <div *ngIf="formulario.controls['name'].invalid && (formulario.controls['name'].dirty || formulario.controls['name'].touched)"
-    class="alert alert-danger">
-    <div *ngIf="formulario.controls['name'].errors.required">
-      Name is required.
-    </div>
-  </div>
-</form>
-<p>Form value: {{ formulario.value | json }}</p>
-<p>Form status: {{ formulario.status | json }}</p>
+<h1>
+  Hola
+</h1>

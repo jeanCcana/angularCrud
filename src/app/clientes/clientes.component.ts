@@ -16,7 +16,16 @@ export class ClientesComponent implements OnInit {
   private formulario: FormGroup;
   private clienteTemp: Cliente = new Cliente()
   private titulo: string
+  private btn: string
+  private alert: string
   private clientes: Cliente[]
+
+  private toast = swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000
+  });
 
   constructor(private fb: FormBuilder, private clienteService: ClienteService) { }
 
@@ -38,7 +47,11 @@ export class ClientesComponent implements OnInit {
     this.clienteService.create(this.clienteTemp).subscribe(
       (response) => {
         this.getClientes()
-        swal.fire('Nuevo cliente', `Cliente ${this.clienteTemp.nombre} creado con éxito!`, 'success')
+        this.toast.fire({
+          type: 'success',
+          title: `${this.alert}`
+        })
+        //swal.fire('Nuevo cliente', `Cliente ${this.clienteTemp.nombre} creado con éxito!`, 'success')
       }
     )
   }
@@ -59,13 +72,17 @@ export class ClientesComponent implements OnInit {
 
   public setTitle(num) {
     if (num == null) {
-      this.clienteTemp = new Cliente()
+      this.formulario.reset()
       this.titulo = "Nuevo cliente 👨🏻‍💼"
+      this.btn = "Agregar cliente"
+      this.alert = "Agregado con éxito"
     }
     else {
       console.log(num)
       this.cargarCliente(num)
       this.titulo = "Editar cliente 👨🏻‍💼"
+      this.btn = "Editar cliente"
+      this.alert = "Editado con éxito"
     }
   }
 
@@ -74,6 +91,7 @@ export class ClientesComponent implements OnInit {
       (cliente) => {
         console.log(cliente)
         this.clienteTemp = cliente
+        this.formulario.reset()
       }
     )
   }
