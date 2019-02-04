@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-directiva',
@@ -6,15 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./directiva.component.css']
 })
 export class DirectivaComponent {
-
-  listaCurso: string[] = ['TypeScript', 'JavaScript', 'Java SE', 'C#', 'PHP']
-
-  habilitar: boolean = false;
-
-  setHabilitar(): void {
-    this.habilitar = (this.habilitar == true) ? false : true;
+  formulario: FormGroup;
+  constructor(private fb: FormBuilder) {
+    this.createForm();
   }
-
-  constructor() { }
+  createForm() {
+    this.formulario = this.fb.group({
+      name: ['', Validators.required]
+    });
+  }
 
 }

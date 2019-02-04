@@ -1,11 +1,16 @@
-<div class="card shadow">
-  <div class="card-header  d-flex align-items-center">
-    <h5 class="mr-auto mb-0">Listado de cursos</h5>
-    <button type="button" class="btn btn-sm btn-outline-primary" (click)="setHabilitar()" href="#">{{habilitar==true?'Ocultar':'Mostrar'}}</button>
+<h2>Angular Reactive Form Validation</h2>
+<form [formGroup]="formulario" novalidate>
+  <div class="form-group">
+    <label class="center-block">Name:
+      <input class="form-control" formControlName="name">
+    </label>
   </div>
-  <ul class="list-group" *ngIf="habilitar == true">
-    <li class="list-group-item" *ngFor="let curso of listaCurso">
-      {{curso}}
-    </li>
-  </ul>
-</div>
+  <div *ngIf="formulario.controls['name'].invalid && (formulario.controls['name'].dirty || formulario.controls['name'].touched)"
+    class="alert alert-danger">
+    <div *ngIf="formulario.controls['name'].errors.required">
+      Name is required.
+    </div>
+  </div>
+</form>
+<p>Form value: {{ formulario.value | json }}</p>
+<p>Form status: {{ formulario.status | json }}</p>
