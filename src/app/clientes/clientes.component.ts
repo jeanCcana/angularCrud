@@ -58,9 +58,6 @@ export class ClientesComponent implements OnInit {
 
   public createForm() {
     this.formulario = this.fb.group({
-      // nombre: [null, Validators.required],
-      // apellido: [null, Validators.required],
-      // email: [null, Validators.compose([Validators.required, Validators.email])]
       nombre: [this.clienteTemp.nombre, Validators.required],
       apellido: [this.clienteTemp.apellido, Validators.required],
       email: [this.clienteTemp.email, Validators.compose([Validators.required, Validators.email])]
@@ -73,17 +70,17 @@ export class ClientesComponent implements OnInit {
       .join(' ')
   }
 
-  public setTitle(num) {
+  public setTitle(num: number) {
     if (num == null) {
       this.clienteTemp = new Cliente()
-      console.log(this.clienteTemp)
+      //console.log(this.clienteTemp)
       this.formulario.reset()
       this.titulo = "Nuevo cliente 👨🏻‍💼"
       this.btn = "Agregar cliente"
       this.alert = "Agregado con éxito"
     }
     else {
-      console.log(num)
+      //console.log(num)
       this.cargarCliente(num)
       this.titulo = "Editar cliente 👨🏻‍💼"
       this.btn = "Editar cliente"
@@ -91,13 +88,25 @@ export class ClientesComponent implements OnInit {
     }
   }
 
-  public cargarCliente(id): void {
+  public cargarCliente(id: number): void {
     this.clienteService.getCliente(id).subscribe(
       (cliente) => {
-        console.log(cliente)
+        //console.log(cliente)
         this.clienteTemp = cliente
-        console.log(this.clienteTemp)
+        //console.log(this.clienteTemp)
         this.formulario.patchValue(this.clienteTemp)
+      }
+    )
+  }
+
+  public eliminarCliente(id: number): void {
+    this.clienteService.delete(id).subscribe(
+      (response) => {
+        this.getClientes()
+        this.toast.fire({
+          type: 'success',
+          title: `Eliminado con éxito`
+        })
       }
     )
   }

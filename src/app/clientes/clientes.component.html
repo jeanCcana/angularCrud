@@ -25,9 +25,12 @@
           <td>{{cliente.email}}</td>
           <td>{{cliente.createAt}}</td>
           <td class="d-flex justify-content-around border-right-0 border-bottom-0">
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#cuModal" (click)="setTitle(cliente.id)"><i
-                class="fas fa-edit"></i></button>
-            <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#cuModal" (click)="setTitle(cliente.id)">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#dModal" (click)="cargarCliente(cliente.id)">
+              <i class="fas fa-trash"></i>
+            </button>
           </td>
         </tr>
       </tbody>
@@ -77,34 +80,35 @@
           {{btn}}
         </button>
       </div>
-
-
-
     </div>
   </div>
 </div>
 
 
 <!-- Modal Eliminar -->
-<div class="modal fade" id="cuModal">
+<div class="modal fade" id="dModal">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">{{titulo}}</h4>
+        <h4 class="modal-title">Eliminar Cliente</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
       <!-- Modal body -->
       <div class="modal-body">
-
-
+        Desea eliminar a
+        <span class="font-weight-bold"> {{clienteTemp.nombre}} {{clienteTemp.apellido}} </span>
+        de la lista de clientes?
       </div>
       <!-- Modal footer -->
       <div class="modal-footer justify-content-center">
-        <button class="btn btn-danger" data-dismiss="modal" [disabled]="!formulario.valid" (click)="create()">
-          {{btn}}
+        <button class="btn btn-secondary" data-dismiss="modal">
+          Cancelar
+        </button>
+        <button class="btn btn-danger" data-dismiss="modal" (click)="eliminarCliente(clienteTemp.id)">
+          Aceptar
         </button>
       </div>
 
