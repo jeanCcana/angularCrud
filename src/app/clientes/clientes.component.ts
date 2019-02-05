@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { Cliente } from './cliente'
 import { ClienteService } from './cliente.service'
 import { Router } from '@angular/router'
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import swal from 'sweetalert2'
 
 
@@ -13,8 +13,8 @@ import swal from 'sweetalert2'
 })
 export class ClientesComponent implements OnInit {
 
-  private formulario: FormGroup;
-  private clienteTemp: Cliente = new Cliente()
+  private formulario: FormGroup
+  public clienteTemp: Cliente = new Cliente()
   private titulo: string
   private btn: string
   private alert: string
@@ -58,9 +58,12 @@ export class ClientesComponent implements OnInit {
 
   public createForm() {
     this.formulario = this.fb.group({
-      nombre: [null, Validators.required],
-      apellido: [null, Validators.required],
-      email: [null, Validators.compose([Validators.required, Validators.email])]
+      // nombre: [null, Validators.required],
+      // apellido: [null, Validators.required],
+      // email: [null, Validators.compose([Validators.required, Validators.email])]
+      nombre: [this.clienteTemp.nombre, Validators.required],
+      apellido: [this.clienteTemp.apellido, Validators.required],
+      email: [this.clienteTemp.email, Validators.compose([Validators.required, Validators.email])]
     });
   }
 
@@ -72,6 +75,8 @@ export class ClientesComponent implements OnInit {
 
   public setTitle(num) {
     if (num == null) {
+      this.clienteTemp = new Cliente()
+      console.log(this.clienteTemp)
       this.formulario.reset()
       this.titulo = "Nuevo cliente 👨🏻‍💼"
       this.btn = "Agregar cliente"
@@ -91,7 +96,8 @@ export class ClientesComponent implements OnInit {
       (cliente) => {
         console.log(cliente)
         this.clienteTemp = cliente
-        this.formulario.reset()
+        console.log(this.clienteTemp)
+        this.formulario.patchValue(this.clienteTemp)
       }
     )
   }
