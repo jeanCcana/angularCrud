@@ -6,14 +6,26 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavId">
-      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <ul class="navbar-nav mr-auto mt-2 mt-sm-0">
         <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" routerLink="/clientes" (click)="close()">Clientes</a>
+          <a class="nav-link" routerLink="/clientes" (click)="close()">Inicio</a>
         </li>
         <li class="nav-item" routerLinkActive="active">
           <a class="nav-link" routerLink="/directivas" (click)="close()">Directivas</a>
         </li>
+
       </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <div class="dropdown">
+          <input class="form-control mr-sm-2" type="text" placeholder="Buscar cliente" id="triggerId"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" autocomplete="off"
+            (input)="getClientes($event.target.value)">
+          <div class="dropdown-menu" [ngClass]="{'d-none' : clientes?.length == 0}" aria-labelledby="triggerId">
+            <a *ngFor="let cliente of clientes" class="dropdown-item" href="#">
+              {{cliente.nombre}} {{cliente.apellido}}</a>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </nav>

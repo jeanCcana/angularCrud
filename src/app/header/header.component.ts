@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
+import { Cliente } from '../clientes/cliente'
+import { HeaderService } from './header.service';
 declare var $: any;
 
 @Component({
@@ -8,11 +10,21 @@ declare var $: any;
 })
 export class HeaderComponent implements OnInit {
 
-  appName = "MonoApp 🍌"
+  appName = "Clientes"
+  clientes: Cliente[]
 
-  constructor() { }
+  constructor(private headerService: HeaderService) { }
 
   ngOnInit() {
+    this.getClientes(' ')
+  }
+
+  public getClientes(nom: string): void {
+    if (nom.length == 0)
+      nom = ' '
+    this.headerService.getClientes(nom).subscribe(
+      (clientes) => { this.clientes = clientes }
+    )
   }
 
   public close() {
