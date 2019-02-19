@@ -44,16 +44,29 @@ export class ClientesComponent implements OnInit {
     this.clienteTemp.nombre = this.capitalizeFirstLetter(this.formulario.get('nombre').value)
     this.clienteTemp.apellido = this.capitalizeFirstLetter(this.formulario.get('apellido').value)
     this.clienteTemp.email = this.formulario.get('email').value
-    this.clienteService.create(this.clienteTemp).subscribe(
-      (response) => {
-        this.getClientes()
-        this.toast.fire({
-          type: 'success',
-          title: `${this.alert}`
-        })
-        //swal.fire('Nuevo cliente', `Cliente ${this.clienteTemp.nombre} creado con éxito!`, 'success')
-      }
-    )
+    console.log(this.clienteTemp.id)
+    if (this.clienteTemp.id) {
+      this.clienteService.update(this.clienteTemp.id, this.clienteTemp).subscribe(
+        () => {
+          this.getClientes()
+          this.toast.fire({
+            type: 'success',
+            title: `${this.alert}`
+          })
+          //swal.fire('Nuevo cliente', `Cliente ${this.clienteTemp.nombre} creado con éxito!`, 'success')
+        }
+      )
+    } else {
+      this.clienteService.create(this.clienteTemp).subscribe(
+        () => {
+          this.getClientes()
+          this.toast.fire({
+            type: 'success',
+            title: `${this.alert}`
+          })
+        }
+      )
+    }
   }
 
   public createForm() {
@@ -73,7 +86,6 @@ export class ClientesComponent implements OnInit {
   public setTitle(num: number) {
     if (num == null) {
       this.clienteTemp = new Cliente()
-      //console.log(this.clienteTemp)
       this.formulario.reset()
       this.titulo = "Nuevo cliente 👨🏻‍💼"
       this.btn = "Agregar cliente"
@@ -101,7 +113,7 @@ export class ClientesComponent implements OnInit {
 
   public eliminarCliente(id: number): void {
     this.clienteService.delete(id).subscribe(
-      (response) => {
+      () => {
         this.getClientes()
         this.toast.fire({
           type: 'success',
