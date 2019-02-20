@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { Cliente } from './cliente'
 import { ClienteService } from './cliente.service'
-import { Router } from '@angular/router'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import swal from 'sweetalert2'
+declare var $: any;
 
 
 @Component({
@@ -19,6 +19,7 @@ export class ClientesComponent implements OnInit {
   private btn: string
   private alert: string
   private clientes: Cliente[]
+  private clientesb: Cliente[]
 
   private toast = swal.mixin({
     toast: true,
@@ -30,8 +31,20 @@ export class ClientesComponent implements OnInit {
   constructor(private fb: FormBuilder, private clienteService: ClienteService) { }
 
   ngOnInit(): void {
+    $('#cuModal').on('shown.bs.modal', function () {
+      $('#input').focus();
+    })
+    this.getClientesB('$')
     this.getClientes()
     this.createForm()
+  }
+
+  public getClientesB(nom: string): void {
+    if (nom.length == 0)
+      nom = '$'
+    this.clienteService.getClientesB(nom).subscribe(
+      (clientesb) => { this.clientesb = clientesb }
+    )
   }
 
   public getClientes(): void {
@@ -41,6 +54,7 @@ export class ClientesComponent implements OnInit {
   }
 
   public create(): void {
+    $('#cuModal').modal('hide');
     this.clienteTemp.nombre = this.capitalizeFirstLetter(this.formulario.get('nombre').value)
     this.clienteTemp.apellido = this.capitalizeFirstLetter(this.formulario.get('apellido').value)
     this.clienteTemp.email = this.formulario.get('email').value
@@ -63,6 +77,11 @@ export class ClientesComponent implements OnInit {
           this.toast.fire({
             type: 'success',
             title: `${this.alert}`
+          })
+        }, (error) => {
+          this.toast.fire({
+            type: 'error',
+            title: "El email " + this.clienteTemp.email + " ya se encuentra registrado"
           })
         }
       )

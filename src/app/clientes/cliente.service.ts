@@ -13,6 +13,10 @@ export class ClienteService {
 
   constructor(private http: HttpClient) { }
 
+  getClientesB(nomApe: string): Observable<Cliente[]> {
+    return this.http.get<Cliente[]>(`${this.urlEndPoint}/buscar/${nomApe}`)
+  }
+
   getClientes(): Observable<Cliente[]> {
     return this.http.get<Cliente[]>(this.urlEndPoint);
   }
