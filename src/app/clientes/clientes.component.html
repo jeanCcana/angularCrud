@@ -1,20 +1,20 @@
 <div class="card shadow">
   <div class="card-header d-flex align-items-center">
     <h5 class="mr-auto mb-0">Lista de Clientes</h5>
-    <div class="d-flex flex-column-reverse flex-md-row ">
+    <div class="d-flex flex-column-reverse flex-md-row">
 
-      <form class="form-inline">
-        <div class="dropdown">
-          <input class="form-control mr-md-3 mt-2 mt-md-0" type="text" placeholder="Buscar cliente" id="triggerId"
+      
+        <div class="dropdown mr-md-3 mt-2 mt-md-0">
+          <input class="form-control" type="text" placeholder="Buscar cliente" size="14" id="triggerId"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" autocomplete="off" (input)="getClientesB($event.target.value)">
           <div class="dropdown-menu" [ngClass]="{'d-none' : clientesb?.length == 0}" aria-labelledby="triggerId">
-            <a *ngFor="let cliente of clientesb" class="dropdown-item" href="">
+            <a *ngFor="let cliente of clientesb" class="dropdown-item" routerLink="/">
               {{cliente.nombre}} {{cliente.apellido}}</a>
           </div>
         </div>
-      </form>
+      
 
-      <a class="btn btn-primary text-white p-1 py-sm-1 px-sm-2" data-toggle="modal" data-target="#cuModal" (click)="setTitle(0)">
+      <a class="btn btn-primary text-white px-0 py-sm-1 px-sm-2" data-toggle="modal" data-target="#cuModal" (click)="setTitle(0)">
         Nuevo Cliente <i class="fa fa-user-plus"></i></a>
 
     </div>
