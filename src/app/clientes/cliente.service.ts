@@ -7,7 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ClienteService {
-  private urlEndPoint: string = 'http://localhost:3000/api/clientes';
+  private urlEndPoint: string = 'https://app1819.herokuapp.com/api/clientes';
 
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' })
 

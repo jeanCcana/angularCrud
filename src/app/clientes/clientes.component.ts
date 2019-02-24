@@ -13,13 +13,13 @@ declare var $: any;
 })
 export class ClientesComponent implements OnInit {
 
-  private formulario: FormGroup
+  public formulario: FormGroup
   public clienteTemp: Cliente = new Cliente()
-  private titulo: string
-  private btn: string
-  private alert: string
-  private clientes: Cliente[]
-  private clientesb: Cliente[]
+  public titulo: string
+  public btn: string
+  public alert: string
+  public clientes: Cliente[]
+  public clientesb: Cliente[]
 
   private toast = swal.mixin({
     toast: true,
@@ -103,7 +103,7 @@ export class ClientesComponent implements OnInit {
   }
 
   public setTitle(num: number) {
-    if (num == null) {
+    if (num == 0) {
       this.clienteTemp = new Cliente()
       this.formulario.reset()
       this.titulo = "Nuevo cliente 👨🏻‍💼"
