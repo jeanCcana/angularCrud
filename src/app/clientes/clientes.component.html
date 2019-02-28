@@ -32,7 +32,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let cliente of clientes; let i = index">
+        <tr *ngFor="let cliente of clientes; let i = index" [ngClass]="{'animated bounceIn' : lastId== cliente.id}">
           <th class="text-center" scope="row">{{cliente.id}}</th>
           <td>{{cliente.nombre}}</td>
           <td>{{cliente.apellido}}</td>

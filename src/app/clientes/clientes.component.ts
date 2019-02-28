@@ -3,6 +3,7 @@ import { Cliente } from './cliente'
 import { ClienteService } from './cliente.service'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import swal from 'sweetalert2'
+import * as io from 'socket.io-client'
 declare var $: any;
 
 
@@ -20,6 +21,8 @@ export class ClientesComponent implements OnInit {
   public alert: string
   public clientes: Cliente[]
   public clientesb: Cliente[]
+  public lastId: number 
+  private socket
 
   private toast = swal.mixin({
     toast: true,
@@ -28,14 +31,16 @@ export class ClientesComponent implements OnInit {
     timer: 3000
   });
 
-  constructor(private fb: FormBuilder, private clienteService: ClienteService) { }
+  constructor(private fb: FormBuilder, private clienteService: ClienteService) { 
+    this.socket = io()
+  }
 
   ngOnInit(): void {
     $('#cuModal').on('shown.bs.modal', function () {
       $('#input').focus();
     })
     this.getClientesB('$')
-    this.getClientes()
+    this.getClientes(0)
     this.createForm()
   }
 
@@ -47,9 +52,19 @@ export class ClientesComponent implements OnInit {
     )
   }
 
-  public getClientes(): void {
+  public getClientes(ind: number): void {
     this.clienteService.getClientes().subscribe(
-      (clientes) => { this.clientes = clientes }
+      (clientes) => { 
+        this.clientes = clientes
+        if(ind==0)
+        this.lastId=-1
+        else if(ind==1)
+        //Ultimo id generado
+        this.lastId=this.clientes[this.clientes.length-1].id
+        else if (ind==2)
+        //Ultimo id actualizado
+        this.lastId=this.clienteTemp.id
+      }
     )
   }
 
@@ -62,7 +77,7 @@ export class ClientesComponent implements OnInit {
     if (this.clienteTemp.id) {
       this.clienteService.update(this.clienteTemp.id, this.clienteTemp).subscribe(
         () => {
-          this.getClientes()
+          this.getClientes(2)
           this.toast.fire({
             type: 'success',
             title: `${this.alert}`
@@ -73,7 +88,7 @@ export class ClientesComponent implements OnInit {
     } else {
       this.clienteService.create(this.clienteTemp).subscribe(
         () => {
-          this.getClientes()
+          this.getClientes(1)
           this.toast.fire({
             type: 'success',
             title: `${this.alert}`
@@ -86,6 +101,7 @@ export class ClientesComponent implements OnInit {
         }
       )
     }
+    
   }
 
   public createForm() {
@@ -133,7 +149,7 @@ export class ClientesComponent implements OnInit {
   public eliminarCliente(id: number): void {
     this.clienteService.delete(id).subscribe(
       () => {
-        this.getClientes()
+        this.getClientes(0)
         this.toast.fire({
           type: 'success',
           title: `Eliminado con éxito`
