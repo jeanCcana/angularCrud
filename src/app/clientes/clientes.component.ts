@@ -21,7 +21,7 @@ export class ClientesComponent implements OnInit {
   public alert: string
   public clientes: Cliente[]
   public clientesb: Cliente[]
-  public lastId: number 
+  public lastId: number
   private socket
 
   private toast = swal.mixin({
@@ -31,7 +31,7 @@ export class ClientesComponent implements OnInit {
     timer: 3000
   });
 
-  constructor(private fb: FormBuilder, private clienteService: ClienteService) { 
+  constructor(private fb: FormBuilder, private clienteService: ClienteService) {
     this.socket = io()
   }
 
@@ -54,16 +54,16 @@ export class ClientesComponent implements OnInit {
 
   public getClientes(ind: number): void {
     this.clienteService.getClientes().subscribe(
-      (clientes) => { 
+      (clientes) => {
         this.clientes = clientes
-        if(ind==0)
-        this.lastId=-1
-        else if(ind==1)
-        //Ultimo id generado
-        this.lastId=this.clientes[this.clientes.length-1].id
-        else if (ind==2)
-        //Ultimo id actualizado
-        this.lastId=this.clienteTemp.id
+        if (ind == 0)
+          this.lastId = -1
+        else if (ind == 1)
+          //Ultimo id generado
+          this.lastId = this.clientes[this.clientes.length - 1].id
+        else if (ind == 2)
+          //Ultimo id actualizado
+          this.lastId = this.clienteTemp.id
       }
     )
   }
@@ -101,7 +101,7 @@ export class ClientesComponent implements OnInit {
         }
       )
     }
-    
+
   }
 
   public createForm() {

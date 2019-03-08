@@ -6,7 +6,7 @@ const app = express();
 app.use(express.static(__dirname + '/dist/mono-app'));
 
 // Send all requests to index.html
-app.get('/*', function(req, res) {
+app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname + '/dist/mono-app/index.html'));
 });
 
@@ -18,9 +18,9 @@ const socketIo = require('socket.io')
 const io = socketIo(server)
 
 io.on('connection', (socket) => {
-  console.log('Nuevo makako conectado')
+  console.log('Nuevo usuario conectado')
 
   socket.on('disconnect', () => {
-    console.log('Se nos fue un makako')
+    console.log('Usuario desconectado')
   })
 })
